@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+		<title>WWM-HRO</title>
+		
+		<!-- META -->
+		<meta charset="UTF-8" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta name="viewport" content = "width = device-width, initial-scale = 1, user-scalable = no" />
+		
+		<!-- SCRIPTS -->
+		<script type="text/javascript" src="/jslib/jquery-1.7.js"></script>
+		<script type="text/javascript" src="/jslib/jquery-ui-1.8.17.custom.min.js"></script>
+		<script type="text/javascript" src="/jslib/jquery.ezcookie-0.8.1.js"></script>
+		<script type="text/javascript" src="/jslib/jquery.numeric.js"></script>
+		<script type="text/javascript" src="/jslib/jquery.tipTip.minified.js"></script>
+		<script type="text/javascript" src="/jslib/bootstrap-modal.js"></script>
+		
+		<script type="text/javascript" src="/jslib/jit.js"></script>
+		<script type="text/javascript" src="/js/settings.js"></script>
+		
+		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+		<script type="text/javascript" src="/js/socket.js"></script>
+
+		<script type="text/javascript" src="/js/charts.js"></script>
+		<script type="text/javascript" src="/js/utils.js"></script>				
+		<script type="text/javascript" src="/js/create.js"></script>
+		
+		<!-- CSS -->
+		<link rel="stylesheet" type="text/css" href="/css/tipTip.css" />			
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap-modal.css" />			
+		<link rel="stylesheet" type="text/css" href="/css/shared.css" />			
+		<link rel="stylesheet" type="text/css" href="/css/create.css" />			
+	</head>
+	<body>  	  
+	  <div class="content" id="create">
+	    <div class="hint">Was für eine Frage möchten Sie erstellen?</div>
+	    <div class="create_choice" title="Erstellen Sie eine Express-Frage eines bestimmten Typs">
+        <span data-type="yn">JA / NEIN</span> <span><span data-type="ab">A</span><span data-type="ab">B</span><span data-type="abc">C</span><span data-type="abcd">D</span></span> <span data-type="guess">SCHÄTZFRAGE</span>      
+      </div>
+	    <div class="hint small">Zu Veranstaltung springen</div>
+      <div class="join_course">
+        <input type="text" placeholder="Veranstaltungsnummer" id="jump_to_course" title="Geben Sie eine Veranstaltungsnummer an, um zu direkt zu dieser zu springen"/>
+      </div>  
+  		<div class="nav">
+  	    <div class="icon home fixed" title="Hauptseite anzeigen">&nbsp;</div>
+        <!-- <div class="icon express fixed" title="Express-Modus">&nbsp;</div> -->
+  	    <div class="icon nav_settings lowlight fixed" title="Erweiterter Modus">&nbsp;</div>
+  	    <div class="icon info lowlight fixed" title="Weitere Informationen über wwm-hro.tk">&nbsp;</div>
+  	    <div class="icon on lowlight fixed" title="Rot = Sie sind nicht eingeloggt. Grün = Sie sind eingeloggt">&nbsp;</div>
+  		</div>
+  	</div>
+  	
+    <div class="content hidden" id="stats">
+      <div id="stat">
+        <div class="hint">Auswertung</div>
+        <span>Es wurden keine Stimmen abgegeben.</span>
+    	  <div id="express_pie"></div>  
+    	</div>
+      <div class="create_choice" title="Erstellen Sie eine weitere Frage">
+        <span data-type="yn">JA / NEIN</span> <span><span data-type="ab">A</span><span data-type="ab">B</span><span data-type="abc">C</span><span data-type="abcd">D</span></span> <span data-type="guess">SCHÄTZFRAGE</span>      
+      </div>          
+      <div class="icon question_prev" id="question_prev_stats" title="Zur vorherigen Frage springen"><img src="/images/noun_project_41.png" /></div>
+      <div class="icon question_next" id="question_next_stats" title="Zur nächsten Frage springen"><img src="/images/noun_project_34.png" /></div>
+      <div class="footer">
+        <div class="question_of_to">Frage <span class="at">x</span>/<span class="of">y</span></div>
+        <div class="question_votes">Stimmen: <span title="Anzahl der bisher abgegebenen Stimmen">0</span></div>
+        <div class="clear"></div>
+      </div>
+  		<div class="nav">
+  	    <div class="icon home fixed" title="Navigation anzeigen">&nbsp;</div>
+        <!-- <div class="icon express fixed" title="Express-Modus">&nbsp;</div> -->
+  	    <div class="icon nav_settings lowlight fixed" title="Erweiterter Modus">&nbsp;</div>
+  	    <div class="icon info lowlight fixed" title="Weitere Informationen über wwm-hro.tk">&nbsp;</div>
+  	    <div class="icon on lowlight fixed" title="Rot = Sie sind nicht eingeloggt. Grün = Sie sind eingeloggt">&nbsp;</div>
+  		</div>
+    </div>
+    
+    <div class="content hidden" id="vote">
+      <div id="url" class="hint fresh"></div>
+      <div id="question_container"></div>
+	    <div id="show_choices"></div>
+	    <div class="create_choice read_only">
+        <span data-type="yn">JA / NEIN</span> <span><span data-type="ab">A</span><span data-type="ab">B</span><span data-type="abc">C</span><span data-type="abcd">D</span></span> <span data-type="guess">SCHÄTZFRAGE</span>      
+      </div>
+      <div class="icon question_prev" id="question_prev" title="Zur vorherigen Frage springen"><img src="/images/noun_project_41.png" /></div>
+      <div id="nav_stats" class="icon" title="Diese Frage beenden und Auswertung anzeigen"><img src="/images/noun_project_01_f.png"></div>
+      <div class="footer">
+        <img src="/images/noun_project_347_g.png" id="question_edit_btn" title="Bearbeiten Sie diese Frage"/>
+        <div class="question_of_to">Frage <span class="at">x</span>/<span class="of">y</span></div>
+        <div class="question_votes">Stimmen: <span title="Anzahl der bisher abgegebenen Stimmen">0</span></div>
+        <div class="clear"></div>
+      </div>
+  		<div class="nav">
+  	    <div class="icon home fixed" title="Navigation anzeigen">&nbsp;</div>
+        <!-- <div class="icon express fixed" title="Express-Modus">&nbsp;</div> -->
+  	    <div class="icon nav_settings lowlight fixed" title="Erweiterter Modus">&nbsp;</div>
+  	    <div class="icon info lowlight fixed" title="Weitere Informationen über wwm-hro.tk">&nbsp;</div>
+  	    <div class="icon on lowlight fixed" title="Rot = Sie sind nicht eingeloggt. Grün = Sie sind eingeloggt">&nbsp;</div>
+  		</div>
+    </div>
+    
+    
+    <div class="content hidden" id="advanced_login">
+      <div class="hint">Bitte loggen Sie sich ein</div>
+      <div id="login_container">
+        <input type="text" placeholder="Ihr Nutzername" id="login_username" />
+			  <input type="password" placeholder="Ihr Passwort" id="login_password" />
+			  <img src="/images/noun_project_34.png" id="login_submit"/>
+			<div>Falls Sie noch keinen Nutzernamen besitzen, können Sie sich <a href="" id="to_register" class="fresh">hier registrieren</a></div>
+			</div>
+  		<div class="nav">
+  	    <div class="icon home fixed" title="Navigation anzeigen">&nbsp;</div>
+        <!-- <div class="icon express lowlight fixed" title="Express-Modus">&nbsp;</div> -->
+  	    <div class="icon nav_settings lowlight fixed" title="Erweiterter Modus">&nbsp;</div>
+  	    <div class="icon info lowlight fixed" title="Weitere Informationen über wwm-hro.tk">&nbsp;</div>
+  	    <div class="icon on lowlight fixed" title="Rot = Sie sind nicht eingeloggt. Grün = Sie sind eingeloggt">&nbsp;</div>
+  		</div>
+    </div>
+    
+    <div class="content hidden" id="advanced_register">
+      <div class="hint">Registrierung</div>
+      <div id="register_container">
+        <input type="text" placeholder="Ihr Nutzername" id="register_username" title="Name oder Pseudonym, mit dem Sie sich registrieren wollen"/>
+			  <input type="password" placeholder="Ihr Passwort" id="register_password" title="Passwort, mit dem Sie sich einloggen möchten."/>
+			  <input type="password" placeholder="Passwortwiederholung" id="register_password_repeat" title="Passwortwiederholung"/>
+			  <img src="/images/noun_project_34.png" id="register_submit" />
+  		</div>
+  		<div class="nav">
+  	    <div class="icon home fixed" title="Navigation anzeigen">&nbsp;</div>
+        <!-- <div class="icon express lowlight fixed" title="Express-Modus">&nbsp;</div> -->
+  	    <div class="icon nav_settings fixed" title="Erweiterter Modus">&nbsp;</div>
+  	    <div class="icon info lowlight fixed" title="Weitere Informationen über wwm-hro.tk">&nbsp;</div>
+  	    <div class="icon on lowlight fixed" title="Rot = Sie sind nicht eingeloggt. Grün = Sie sind eingeloggt">&nbsp;</div>
+  		</div>
+    </div>
+    
+    <div class="content hidden" id="advanced_overview">
+      <div class="hint">Übersicht</div>
+      <ul id="course_list"></ul>
+      <div id="create_new_course">Eine neuen Veranstaltung erstellen</div>
+  		<div class="nav">
+  	    <div class="icon home fixed" title="Navigation anzeigen">&nbsp;</div>
+        <!-- <div class="icon express lowlight fixed" title="Express-Modus">&nbsp;</div> -->
+  	    <div class="icon nav_settings fixed" title="Erweiterter Modus">&nbsp;</div>
+  	    <div class="icon info lowlight fixed" title="Weitere Informationen über wwm-hro.tk">&nbsp;</div>
+  	    <div class="icon on lowlight fixed" title="Rot = Sie sind nicht eingeloggt. Grün = Sie sind eingeloggt">&nbsp;</div>
+  		</div>
+    </div>
+    
+    <div class="content hidden" id="advanced_course">
+      <div class="hint">Veranstaltung <span class="fresh" id="course_number" title="Mit dieser Nummer können Andere ihre Veranstaltung finden"></span> bearbeiten </div>
+      <input type="text" placeholder="Veranstaltungsname" id="course_name" title="Tragen Sie hier ihren Veranstaltungsnamen ein" /> <span id="course_reset_stats" title="Sämtliche Abstimmungen zu den Fragen dieser Veranstaltung werden auf 0 zurückgesetzt.">Statistik löschen</span>
+  		<ul id="course_question_sort"></ul>      
+      <div id="question_settings" class="hidden">
+        <div class="hint small"><input type="text" placeholder="Fragestellung" id="question_name" title="Tragen Sie hier Ihre Fragestellung ein"/></div>        
+  	    <div class="create_choice edit_only" title="Ändern Sie den Typ der Frage">
+          <span data-type="yn">JA / NEIN</span> <span><span data-type="ab">A</span><span data-type="ab">B</span><span data-type="abc">C</span><span data-type="abcd">D</span></span> <span data-type="guess">SCHÄTZFRAGE</span>      
+        </div>
+  			<div id="question_answers_abcd">
+  				<div class="hidden"><input type="text" placeholder="Antwort A" class="a" data-key="a" title="Tragen Sie hier die erste Antwortmöglichkeit ein"/></div>
+  				<div class="hidden"><input type="text" placeholder="Antwort B" class="b" data-key="b" title="Tragen Sie hier die zweite Antwortmöglichkeit ein"/></div>
+  				<div class="hidden"><input type="text" placeholder="Antwort C" class="c" data-key="c" title="Tragen Sie hier die dritte Antwortmöglichkeit ein"/></div>
+  				<div class="hidden"><input type="text" placeholder="Antwort D" class="d" data-key="d" title="Tragen Sie hier die vierte Antwortmöglichkeit ein"/></div>
+  			</div>
+      </div>
+      <div class="hint small">Weitere Frage hinzufügen</div>        
+	    <div class="create_choice add_only" title="Fügen Sie eine Frage mit dem gewählten Typ hinzu.">
+	      <div id="add_poll" class="icon" title="Fügen Sie Ihrer Veranstaltung eine weitere Frage hinzu, indem Sie einen Fragetyp (rechts) auswählen.">&nbsp;</div>
+        <span data-type="yn">JA / NEIN</span> <span><span data-type="ab">A</span><span data-type="ab">B</span><span data-type="abc">C</span><span data-type="abcd">D</span></span> <span data-type="guess">SCHÄTZFRAGE</span>      
+      </div>
+  		<div class="nav">
+  	    <div class="icon home fixed" title="Navigation anzeigen">&nbsp;</div>
+        <!-- <div class="icon express lowlight fixed" title="Express-Modus">&nbsp;</div> -->
+  	    <div class="icon nav_settings fixed" title="Erweiterter Modus">&nbsp;</div>
+  	    <div class="icon info lowlight fixed" title="Weitere Informationen über wwm-hro.tk">&nbsp;</div>
+  	    <div class="icon on lowlight fixed" title="Rot = Sie sind nicht eingeloggt. Grün = Sie sind eingeloggt">&nbsp;</div>
+  		</div>
+	</div>
+
+  <div class="content hidden" id="information">
+    <div class="hint small">Was ist wwm-hro.tk?</div>
+    Dieses Projekt soll allen helfen, die schnell und einfach Abstimmungen vornehmen wollen. Entstanden für die Nutzung in Vorlesungen, kann es jedoch in fast jedem Umfeld genutzt werden. Dabei sind einfache Bedienbarkeit und wenig Clicks bei der Benutzung die wichtigsten Aspekte.<br /><br />
+
+    Der Service kann ohne Anmeldung direkt von jedem Browser aus genutzt werden - egal ob stationär oder mobil. Spezielle Apps für Smartphones werden nicht benötigt.<br /><br />
+
+    Dabei werden die üblichsten Formen der Abstimmung unterstützt:
+    <ul>
+	  <li><b>Ja/Nein:</b> Die simpelste Form über etwas zu entscheiden. Dafür oder Dagegen.</li>
+	  <li><b>A-B-C-D:</b> Soll es etwas komplexer sein? Bis zu vier Möglichkeiten stehen hier zur Auswahl.</li>
+	  <li><b>Schätzen:</b> Was ist Pi? Wieviele Knochen hat der menschliche Körper? Hier können Zahlenwerte geschätzt werden.</li>
+	</ul>
+    <div class="hint small">Javascript-Plugins und Frameworks</div>
+    Im folgenden sind alle externen Javascript-Bibliotheken aufgelistet, die zur Realisierung dieses Projekts genutzt wurden.
+      <ul>
+        <li><a href="http://jquery.org/license/">jQuery</a> (<a href="http://www.opensource.org/licenses/mit-license.php" target="_blank">MIT Licence</a>)</li>
+        <li><a href="http://jqueryui.com/about" target="_blank">jQuery UI</a> (<a href="http://www.opensource.org/licenses/mit-license.php" target="_blank">MIT Licence</a>)</li>
+        <li><a href="https://github.com/philogb/jit/" target="_blank">jit</a> (<a href="/jslib/jit.js">Disclaimer</a>)</li>
+        <li><a href="https://github.com/twitter/bootstrap" target="_blank">Twitter Bootstrap</a> (<a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache2 Licence</a>)</li>
+        <li><a href="http://www.texotela.co.uk/code/jquery/numeric/" target="_blank">jQuery.Numeric</a> (<a href="http://www.opensource.org/licenses/mit-license.php" target="_blank">MIT Licence</a>)</li>
+        <li><a href="http://code.drewwilson.com/entry/tiptip-jquery-plugin" target="_blank">jQuery.TipTip</a> (<a href="http://www.opensource.org/licenses/mit-license.php" target="_blank">MIT Licence</a>)</li>
+        <li><a href="http://socket.io/" target="_blank">Socket.io</a> (<a href="http://www.opensource.org/licenses/mit-license.php" target="_blank">MIT Licence</a>)</li>
+        <li><a href="http://nodejs.org/" target="_blank">Nodejs</a> (<a href="http://www.opensource.org/licenses/mit-license.php" target="_blank">MIT Licence</a>)</li>
+      </ul>
+      <div class="hint small">Icons</div>
+      Alle auf dieser Seite genutzten Icons stammen von <a href="http://thenounproject.com/" target="_blank">TheNounProject.com</a>.
+      <ul>
+        <li><img src="/images/noun_project_34.svg" width="15"/> Public-Domain (AIGA  U.S. Department of Transportation)</li>
+        <li><img src="/images/noun_project_41.svg" width="15"/> Public-Domain (AIGA  U.S. Department of Transportation)</li>
+        <li><img src="/images/noun_project_22.svg" width="15"/> Public-Domain (AIGA  U.S. Department of Transportation)</li>
+        <li><img src="/images/noun_project_94.svg" width="15"/> Public Domain</li>
+        <li><img src="/images/noun_project_275.svg" width="15"/> <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">CC BY 3.0</a> (<a href="http://www.thenounproject.com" target="_blank">The Noun Project</a>)</li>
+        <li><img src="/images/noun_project_293.svg" width="15"/> <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">CC BY 3.0</a> (<a href="http://www.thenounproject.com" target="_blank">The Noun Project</a>)</li>
+        <li><img src="/images/noun_project_304.svg" width="15"/> <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">CC BY 3.0</a> (<a href="http://www.thenounproject.com" target="_blank">The Noun Project</a>)</li>
+        <li><img src="/images/noun_project_330.svg" width="15"/> <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">CC BY 3.0</a> (<a href="http://www.thenounproject.com" target="_blank">The Noun Project</a>)</li>
+        <li><img src="/images/noun_project_339.svg" width="15"/> <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">CC BY 3.0</a> (<a href="http://www.thenounproject.com" target="_blank">The Noun Project</a>)</li>
+        <li><img src="/images/noun_project_347.svg" width="15"/> <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">CC BY 3.0</a> (<a href="http://www.thenounproject.com" target="_blank">The Noun Project</a>)</li>
+        <li><img src="/images/noun_project_814.svg" width="15"/> <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">CC BY 3.0</a> (Scott Lewis, <a href="http://www.thenounproject.com" target="_blank">The Noun Project</a>)</li>
+        <li><img src="/images/noun_project_835.svg" width="15"/> <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">CC BY 3.0</a> (Hrag Chanchanian, <a href="http://www.thenounproject.com" target="_blank">The Noun Project</a>)</li>
+        <li><img src="/images/noun_project_908.svg" width="15"/> <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">CC BY 3.0</a> (Sven Hofmann, <a href="http://www.thenounproject.com" target="_blank">The Noun Project</a>)</li>
+        <li><img src="/images/noun_project_944.svg" width="15"/> <a href="https://creativecommons.org/about/cc0" target="_blank">CC0</a> (Designed by Ryan Oksenhorn)</li>
+        <li><img src="/images/noun_project_950.svg" width="15"/> <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">CC BY 3.0</a> (Andre, <a href="http://www.thenounproject.com" target="_blank">The Noun Project</a>)</li>
+        <li><img src="/images/noun_project_1064.svg" width="15"/> <a href="https://creativecommons.org/about/cc0" target="_blank">CC0</a> (Designed by Jeremy Minnick)</li>
+      </ul>
+  		<div class="nav">
+  	    <div class="icon home fixed" title="Navigation anzeigen">&nbsp;</div>
+        <!-- <div class="icon express lowlight fixed" title="Express-Modus">&nbsp;</div> -->
+  	    <div class="icon nav_settings lowlight fixed" title="Erweiterter Modus">&nbsp;</div>
+  	    <div class="icon info fixed" title="Weitere Informationen über wwm-hro.tk">&nbsp;</div>
+  	    <div class="icon on lowlight fixed" title="Rot = Sie sind nicht eingeloggt. Grün = Sie sind eingeloggt">&nbsp;</div>
+  		</div>
+  </div>       
+
+  <!-- simple navigation for mobile -->
+  <div id="simplenav">
+    <img src="/images/noun_project_293.png" id="simple_home" />
+    <img src="/images/noun_project_1064.png" id="simple_advanced"/>
+    <img src="/images/noun_project_908.png" id="simple_info"/>
+    <img src="/images/noun_project_94_on.png" id="simple_login_on"/>
+    <img src="/images/noun_project_94_off.png" id="simple_login_off" class="hidden"/>
+  </div>
+
+  <!-- Modal remove poll -->
+  <div class="modal hidden" id="poll_delete_prompt">
+    <div class="modal-header">
+      <h3>Wollen Sie die Frage wirklich löschen?</h3>
+    </div>
+    <div class="modal-footer">
+      <a href="#" data-dismiss="modal" id="remove_poll_button" class="btn right warn">löschen</a>
+      <a href="#" data-dismiss="modal" class="btn right">abbrechen</a>
+      <div class="clear"></div>
+    </div>
+  </div>
+
+  <!-- Modal remove poll -->
+  <div class="modal hidden" id="course_delete_prompt">
+    <div class="modal-header">
+      <h3>Wollen Sie diese Veranstaltung wirklich löschen?</h3>
+    </div>
+    <div class="modal-footer">
+      <a href="#" data-dismiss="modal" id="remove_course_button" class="btn right warn">löschen</a>
+      <a href="#" data-dismiss="modal" class="btn right">abbrechen</a>
+      <div class="clear"></div>
+    </div>
+  </div>
+
+  <!-- Modal reset stats -->
+  <div class="modal hidden" id="course_reset_prompt">
+    <div class="modal-header">
+      <h3>Wollen Sie die Auswertungen dieser Veranstaltung wirklich löschen?</h3>
+    </div>
+    <div class="modal-footer">
+      <a href="#" data-dismiss="modal" id="course_reset_prompt_btn" class="btn right warn">löschen</a>
+      <a href="#" data-dismiss="modal" class="btn right">abbrechen</a>
+      <div class="clear"></div>
+    </div>
+  </div>
+
+	</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+		<title>WWM-HRO</title>
+		
+		<!-- META -->
+		<meta charset="UTF-8" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta name="viewport" content = "width = device-width, initial-scale = 1, user-scalable = no" />
+		
+		<!-- SCRIPTS -->
+		<script type="text/javascript" src="/jslib/jquery-1.7.js"></script>
+		<script type="text/javascript" src="/jslib/jquery-ui-1.8.17.custom.min.js"></script>
+		<script type="text/javascript" src="/jslib/jquery.ezcookie-0.8.1.js"></script>
+		<script type="text/javascript" src="/jslib/jquery.numeric.js"></script>
+		<script type="text/javascript" src="/jslib/bootstrap-modal.js"></script>
+		
+		<script type="text/javascript" src="/jslib/jit.js"></script>
+		<script type="text/javascript" src="/js/charts.js"></script>
+
+		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+		<script type="text/javascript" src="/js/socket.js"></script>
+				
+		<script type="text/javascript" src="/js/poll.js"></script>
+		
+		<!-- CSS -->
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap-modal.css" />			
+		<link rel="stylesheet" type="text/css" href="/css/shared.css" />			
+		<link rel="stylesheet" type="text/css" href="/css/poll.css" />			
+	</head>
+	<body>
+    <div class="content hidden" id="stats">
+      <div id="stat">
+        <div class="hint">Auswertung</div>
+        <span>Es wurden keine Stimmen abgegeben.</span>
+    	  <div id="express_pie"></div>  
+    	</div> 
+    </div>
+    <div class="content hidden" id="vote">
+      <div id="question_container"></div>
+      <div class="choice_container hidden" data-type="yn">
+        <div class="yn_choice" data-type="y"><div>JA</div></div>
+        <div class="yn_choice" data-type="n"><div>NEIN</div></div>
+        <div class="clear"></div>
+      </div>
+      <div class="choice_container hidden" data-type="ab">
+        <div class="abcd_choice" data-type="a"></div>
+        <div class="abcd_choice" data-type="b"></div>
+      </div>
+      <div class="choice_container hidden" data-type="abc">
+        <div class="abcd_choice" data-type="a"></div>
+        <div class="abcd_choice" data-type="b"></div>
+        <div class="abcd_choice" data-type="c"></div>    
+      </div>
+      <div class="choice_container hidden" data-type="abcd">
+        <div class="abcd_choice" data-type="a"></div>
+        <div class="abcd_choice" data-type="b"></div>
+        <div class="abcd_choice" data-type="c"></div>
+        <div class="abcd_choice" data-type="d"></div>
+      </div>
+      <div class="choice_container hidden" data-type="guess">
+        <input type="text" id="guess_input" placeholder="Schätzwert" />
+      </div>
+      <div class="clear"></div>
+      <div id="vote_count" class="footer">
+        <div id="answer_again" class="icon">&nbsp;</div>
+        Stimmen: <span>0</span>
+        <div class="clear"></div>
+      </div>
+  		<div class="nav">
+  	    <div class="icon home fixed" title="Veranstaltung verlassen">&nbsp;</div>
+  		</div>
+    </div>
+
+    <!-- Modal answer again -->
+    <div class="modal hidden" id="answer_again_prompt">
+      <div class="modal-header">
+        <h3>Das erneute Abstimmen ist nur für andere Teilnehmer der Veranstaltung gedacht. Sind Sie sicher?</h3>
+      </div>
+      <div class="modal-footer">
+        <a href="" id="answer_again_yes" class="btn right warn" data-dismiss="modal">ja</a>
+        <a href="" class="btn right" data-dismiss="modal">nein</a>
+        <div class="clear"></div>
+      </div>
+    </div>
+	</body>
+</html>

@@ -1,0 +1,175 @@
+.choice_container {
+  position: relative;
+}
+
+/* YN */
+.yn_choice {
+  position: relative;
+  height: 120px;
+  width: 100px;
+  background-size: 100px;
+  background-repeat: no-repeat;  
+  display: inline-block;
+	cursor: pointer;
+  font-weight: bold;
+  color: #fff;
+  filter: Alpha(Opacity=70); /* IE7 */
+  opacity: 0.7;
+}
+
+#stat > span {
+  padding: 50px 50px 0 50px;
+  display: block;
+}
+
+.yn_choice[data-type="y"] {
+  float: right;
+  margin-top: 20px;
+  margin-right: 30%;
+  background-image: url(../images/noun_project_330.png);  
+}
+.yn_choice[data-type="n"] {
+  float:left;
+  margin-top: 70px;
+  margin-left: 30%;
+  background-image: url(../images/noun_project_339.png);   
+}
+
+.yn_choice[data-type="y"] > div {
+  position: absolute;
+  top: 60px;
+  left: 45px;
+}
+
+.yn_choice[data-type="n"] > div {
+  position: absolute;
+  top: 20px;
+  left: 20px;  
+}
+
+/* ABCD */
+
+.abcd_choice {
+  min-height: 100px;
+  min-width: 300px;
+  padding: 10px 0 0 100px;
+  background-size: 100px;
+  background-repeat: no-repeat;
+  font-size: 25px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+  filter: Alpha(Opacity=70); /* IE7 */
+  opacity: 0.7;
+}
+
+.abcd_choice.centered {
+  background-position: center;
+  padding-left: 0;
+  display: inline-block;
+}
+
+.abcd_choice.chosen,
+.yn_choice.chosen  {
+  filter: Alpha(Opacity=100); /* IE7 */
+  opacity: 1;
+}
+
+.abcd_choice[data-type]:not(.chosen):hover,
+.yn_choice[data-type]:not(.chosen):hover {
+  filter: Alpha(Opacity=90); /* IE7 */
+  opacity: 0.9;
+}
+
+.abcd_choice[data-type="a"] {
+  background-image: url(../images/a.png);  
+}
+.abcd_choice[data-type="b"] {
+  background-image: url(../images/b.png);  
+}
+.abcd_choice[data-type="c"] {
+  background-image: url(../images/c.png);  
+}
+.abcd_choice[data-type="d"] {
+  background-image: url(../images/d.png);  
+}
+
+/* GUESS */
+#guess_input {
+  width: 90%;
+  margin: 50px auto;
+  display: block;
+  font-size: 40px;
+  font-weight: bold;
+  text-align: center;
+  border: 1px solid #ccc;
+  height: 50px;
+}
+
+.footer {
+  text-align: right;
+}
+
+#answer_again {
+  background-image: url(../images/noun_project_944.png);
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 640px) {
+
+  .yn_choice[data-type="y"] {
+    margin-right: 20%;
+  }
+  .yn_choice[data-type="n"] {
+    margin-left: 20%;
+  }
+
+  .abcd_choice.centered {
+    display: block;
+  }
+}
+
+@media (max-width: 400px) {
+
+  #question_container {
+    font-size: 20px;
+    padding: 20px 0 30px 60px;
+    background-size: 45px;
+    background-repeat: no-repeat;
+    background-position: left;
+    font-weight: bold;
+    min-height: 0;
+  } 
+
+  .abcd_choice {
+    min-height: 50px;
+    font-size: 14px;
+    background-size: 50px;
+    padding: 10px 0 10px 60px;
+    background-repeat: no-repeat;
+  }
+    
+  .yn_choice[data-type="y"] {
+    margin-right: 10%;
+  }
+  .yn_choice[data-type="n"] {
+    margin-left: 10%;
+  }
+  
+  #guess_input {
+    width: 200px;
+  }
+
+  .footer {
+    font-size: 14px;
+  }
+
+  #answer_again {
+    background-size: 30px auto;
+    padding-bottom: 10px;
+  }
+
+  .footer > span {
+    font-size: 20px;
+  }
+}
+

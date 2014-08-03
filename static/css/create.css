@@ -1,0 +1,458 @@
+.create_choice {
+  margin: 20px 0 50px 0;
+  text-align: center;
+  line-height: 50px;
+}
+.create_choice.left {
+  text-align:left;
+  margin: 20px 0;
+}
+.create_choice.nomargin {
+  margin: 10px !important;
+}
+
+.create_choice > span {
+  font-size: 30px;  
+  border: 1px solid #ccc;
+  cursor: pointer;
+  padding: 5px 0;
+}
+
+.create_choice > span[data-type] {
+    padding: 5px;
+}
+
+.create_choice > span > span {
+  padding: 5px;
+}
+
+#vote > .create_choice {
+  margin: 100px 0;
+}
+
+#show_choices {
+  margin: 20px 10px 20px 50px;
+}
+#show_choices > div {
+  font-size: 30px;
+  margin: 10px 0;
+  font-weight: lighter;
+}
+#show_choices > div > span {
+  font-size: 40px;
+  padding: 0 10px 0 0;
+  font-weight: bold;
+  margin-left: -40px;
+}
+
+.create_choice:not(.read_only) > span[data-type]:hover, 
+.create_choice > span.selected,
+.create_choice.edit_only > span.selected,
+.create_choice > span > span.selected,
+.create_choice > span > span.hovered {
+  color: #fff;
+  background-color: #555;
+}
+
+.create_choice.read_only {
+  filter: Alpha(Opacity=70); /* IE7 */
+  opacity: 0.7;
+}
+.create_choice.read_only > span,
+.create_choice.read_only > span > span {
+  font-size: 50px !important;
+}
+
+.create_choice.add_only {
+  text-align: right;
+  margin-bottom: 20px;
+}
+.create_choice.edit_only {
+  text-align: left;
+  margin-bottom: 10px;
+}
+.create_choice.add_only > span,
+.create_choice.edit_only > span {
+  background-color: #fff;
+}
+
+.join_course > input {
+  width: 90%;
+  margin: 20px auto;
+  display: block;
+  font-size: 30px;
+  font-weight: lighter;
+  text-align: center;
+  height: 50px;
+  border: 1px solid #ccc;
+}
+
+#url {
+  text-align: center;
+  font-size: 40px;
+/*  -ms-user-select:text;
+  -moz-user-select:text;
+  -webkit-user-select:text;
+  user-select: text;*/
+}
+
+a {
+  font-weight: bold;
+	color: #00BFFF;
+}
+a:hover {
+  font-weight: bold;
+	color: #006eee;  
+}
+
+#login_username, 
+#login_password,
+#register_username,
+#register_password,
+#register_password_repeat {
+  margin: 15px 0 15px 0;
+  height: 30px;
+  vertical-align: middle;
+  border: 1px solid #ccc;
+  width: 100px;
+}
+
+#course_question_sort {
+  margin: 0 0 20px 0;
+	padding: 0;  
+}
+
+.questions {
+  padding: 10px;
+  font-size: 13px;
+}
+.seperator {
+  margin: 0 10px;
+}
+
+#course_question_sort > li {
+  padding: 5px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+	list-style:none;
+	background-color: #555;
+	color: #fff;
+	font-weight: bold;
+	clear:both;
+}
+
+#course_question_sort > li > span.start_question,
+#course_question_sort > li > span.remove_question,
+#course_question_sort > li > span.edit_question,
+#course_question_sort > li > span.sort_question,
+#course_question_sort > li > span.question_type {
+  float:right;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+#course_question_sort > li > span.question_type {
+  color: #ddd;
+  cursor: default;
+}
+
+#course_question_sort > li > span.question_item {
+  max-width: 350px;
+  display: inline-block;
+}
+#course_question_sort > li > span.question_number {
+  vertical-align: top;
+}
+
+#course_list {
+  margin: 0 0 20px 0;
+	padding: 0;
+}
+#course_list > li {
+/*  border: 1px solid #ccc;*/
+  position: relative;
+  padding: 5px;
+  margin: 10px 0;
+	list-style: none;
+}
+
+.course_edit,
+.course_remove {
+  position: absolute;
+  padding: 5px 10px;
+  top: 15px;
+  right: 0;
+/*  color: #fff;*/
+/*  background-color: #555;*/
+  font-weight: bold;
+  cursor: pointer;
+}
+.course_remove {
+  right: 30px;
+}
+.course_name {
+  font-weight: bold;
+  padding-right: 20px;
+  display: block;
+}
+.course_info {
+}
+.course_add_info {
+  font-size: 12px;
+}
+
+.question_of_to {
+  float:left;
+}
+.question_votes {
+  float:right;
+}
+.footer > div > span {
+  font-weight: bold;
+}
+
+#question_edit_btn {
+  width: 30px;
+  padding: 0 30px;
+  cursor: pointer;
+}
+
+#create_new_course {
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+  color: #FFF;
+  background-color: #555; 
+  cursor: pointer; 
+}
+
+#course_name, 
+#question_name,
+#question_answers_abcd > div > input {
+  margin: 10px 0;
+  height: 30px;
+  width: 60%;
+  border: 1px solid #ccc;  
+}
+#question_answers_abcd > div > input {
+  width: 90%;
+}
+
+#question_settings {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #EFEFEF;
+  border: 1px solid #ccc;
+}
+
+/* ICONS */
+#add_poll {
+  float:left;
+  height: 50px;
+  background-size: 50px;
+  cursor: default;
+  filter: Alpha(Opacity=10); /* IE7 */
+  opacity: 0.1;  
+  background-image: url(../images/noun_project_950.png);    
+}
+
+.all_ok {
+  margin: 5px 10px 0 10px;
+  height: 30px;
+  vertical-align: middle;
+}
+
+#register_submit,
+#login_submit,
+img.question_next {
+  margin: 0 20x;
+  height: 20px;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+#question_next,
+#question_next_stats,
+#question_prev,
+#question_prev_stats,
+#nav_stats {
+  float: none;
+  position: absolute;
+  height: 50px;
+  top: 200px;  
+}
+#question_next,
+#question_next_stats {
+  right: -60px;
+}
+#question_prev,
+#question_prev_stats {
+  left: -75px;
+}
+#nav_stats {
+  top: 190px;
+  right: -52px;
+}
+
+.express.fixed {
+  float: none;
+  height: 50px;
+  background-size: 60px;
+  width: 60px;
+  background-image: url(../images/noun_project_865.png);
+}
+.nav_settings.fixed {
+  float: none;
+  height: 50px;
+  width: 50px;
+  background-size: 50px;
+}
+
+#simplenav {
+  display: none;
+}
+#simplenav > img {
+	cursor: pointer;
+	height: 40px;
+}
+
+.info.fixed {
+  float: none;
+  height: 50px;
+  background-size: 50px;
+  width: 50px;
+  background-image: url(../images/noun_project_908.png);  
+}
+.off.fixed,
+.on.fixed {
+  float: none;
+  height: 50px;
+  background-size: 45px;
+  width: 50px;  
+}
+.fixed:hover {
+  filter: Alpha(Opacity=80); /* IE7 */
+  opacity: 0.8 !important;
+}
+.on.fixed {
+  background-image: url(../images/noun_project_94_on.png);      
+}
+.off.fixed {
+  background-image: url(../images/noun_project_94_off.png);      
+}
+
+.nav_settings {
+  background-size: 30px;
+  width: 30px;
+  background-image: url(../images/noun_project_1064.png);
+}
+#course_reset_stats {
+  font-size: 20px;
+  padding: 5px 10px;
+  margin: 10px 0;
+  vertical-align: top;
+  color: #fff;
+  background-color: #555;
+  display: inline-block;
+  cursor: pointer;
+}
+
+#nav_stats {
+/*  background-image: url(../images/noun_project_814.png);*/
+/*  background-image: url(../images/noun_project_34_f.png);
+  background-size: auto 35px;*/
+}
+
+
+
+@media (max-width: 800px) {
+
+  #simplenav {
+    display: block !important;
+    text-align: center;
+    height: 70px;
+  }
+  #simplenav > img {
+    height: 40px;
+    padding: 10px;
+  }
+  .nav {
+    display: none;
+  }
+  #course_question_sort > li > span.question_item {
+    display: block !important;
+    margin-bottom: 10px;
+    max-width: none !important;
+  }
+
+  .question_number {
+    display: none;
+  }
+  #question_next, 
+  #question_prev,
+  #question_prev_stats,
+  #question_next_stats, 
+  #nav_stats {
+    position: static;
+  }
+  #question_next, 
+  #question_next_stats,
+  #nav_stats {
+    float:right;
+  }
+  #question_prev,
+  #question_prev_stats {
+    float: left;
+  }
+  #show_choices > div {
+    font-size: 20px;
+  }
+  #show_choices > div > span {
+    font-size: 23px;
+  }
+  .footer {
+    font-size: 20px;
+    clear:both;
+  }
+}
+
+@media (max-width: 400px) {
+
+  .create_choice.edit_only,
+  .create_choice.add_only {
+    line-height: 40px;
+    margin: 10px 0 !important;
+    padding: 0;
+    text-align: center;
+  }
+  .create_choice.edit_only > span,
+  .create_choice.add_only > span {
+    font-size: 18px;
+  }
+  #add_poll {
+    display: none;
+  }
+
+  .create_choice.read_only > span,
+  .create_choice.read_only > span > span {
+    font-size: 40px !important;
+  }
+
+  #question_container {
+    font-size: 20px;
+    padding: 20px 0 30px 60px;
+    background-size: 45px;
+    background-repeat: no-repeat;
+    background-position: left;
+    font-weight: bold;
+    min-height: 0;
+  }   
+  #question_edit_btn {
+    width: 20px;
+    padding: 0;
+  }
+  #url {
+    font-size: 20px;
+  }
+  
+}
